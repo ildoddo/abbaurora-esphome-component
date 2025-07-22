@@ -1,0 +1,95 @@
+esphome:
+  name: abbaurora
+  friendly_name: "ABB Aurora V2"
+
+esp8266:
+  board: nodemcuv2
+
+# Configura l'external component
+external_components:
+  - source:
+      type: local
+      path: components
+
+# Logger configuration
+logger:
+  level: DEBUG
+  hardware_uart: UART1
+
+# WiFi configuration
+wifi:
+  ssid: !secret wifi_ssid1
+  password: !secret wifi_password1
+   # Usa un IP statico diverso se necessario
+  manual_ip:
+    static_ip: 192.168.0.15  # Cambia con un IP diverso
+    gateway: 192.168.0.1
+    subnet: 255.255.255.0
+  ap:
+    ssid: "Abbaurora Fallback Hotspot"
+    password: "loDS8LCal7D1"
+
+captive_portal:
+
+api:
+
+ota:
+  platform: esphome
+
+# Sensori numerici
+sensor:
+  - platform: abbaurora
+    power:
+      name: "PV Total Output Power"
+    voltage:
+      name: "Grid Voltage"
+    current:
+      name: "Grid Current"
+    frequency:
+      name: "Grid Frequency"
+    riso:
+      name: "Isolation resistance (Riso)"
+    ileak:
+      name: "Inverter Leak Current"
+    power_peak:
+      name: "Power Peak Ever"
+    power_peak_today:
+      name: "Power Peak Today"
+    temp_inverter:
+      name: "Inverter Temperature"
+    temp_booster:
+      name: "Booster Temperature"
+    power_1:
+      name: "String 1 Power"
+    power_2:
+      name: "String 2 Power"
+    voltage_1:
+      name: "String 1 Voltage"
+    voltage_2:
+      name: "String 2 Voltage"
+    current_1:
+      name: "String 1 Current"
+    current_2:
+      name: "String 2 Current"
+    energy_daily:
+      name: "PV Cumulated Daily Energy"
+    energy_total:
+      name: "PV Cumulated Lifetime Energy"
+    update_interval: 60s
+
+# Sensori di testo
+text_sensor:
+  - platform: abbaurora
+    version:
+      name: "Model"
+    inverter_state:
+      name: "Inverter State"
+    global_state:
+      name: "Global State"
+    channel1_state:
+      name: "DCDC String 1 State"
+    channel2_state:
+      name: "DCDC String 2 State"
+    alarm:
+      name: "Alarm"
+    update_interval: 120s
